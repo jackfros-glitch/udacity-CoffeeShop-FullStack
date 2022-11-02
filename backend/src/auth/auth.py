@@ -86,6 +86,11 @@ def get_token_auth_header():
 
 
 def check_permissions(permission, payload):
+    '''
+    requires a permission arguement which of type string and a payload 
+    checks if the permission is in the payload
+    if the permision is in the payload returns true else it flag an error
+    '''
     if 'permissions' not in payload:
         raise AuthError({
             'code': 'invalid_claims',
@@ -114,6 +119,10 @@ def check_permissions(permission, payload):
 
 
 def verify_decode_jwt(token):
+    '''
+    takes in a token and then verifies if it is authentic by sending the token to the Auth0
+    and then returning the decoded token else it returns an error  
+    '''
     jsonurl = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
     jwks = json.loads(jsonurl.read())
     unverified_header = jwt.get_unverified_header(token)
