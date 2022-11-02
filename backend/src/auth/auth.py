@@ -36,6 +36,12 @@ class AuthError(Exception):
 
 
 def get_token_auth_header():
+    '''
+    checks the request header to see if it is the right type of header
+    and thenn returns the token if it is an Authorization header with a bearer token
+    else it flags an error
+
+    '''
     auth = request.headers.get('Authorization', None)
     if not auth:
         raise AuthError({
